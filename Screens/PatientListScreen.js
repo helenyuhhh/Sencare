@@ -14,13 +14,20 @@ const UserListComponent = () => {
     },[])
     patientRow = (patient) => 
         <View style={styles.viewStyle}>
-            <Text style={styles.textStyle}>{patient.name.first +" "} {patient.name.last}</Text>
-            <Text style={styles.textStyle}>{patient.age}</Text>
-            <Text style={styles.textStyle}>{patient.condition}</Text>
-            
+                <Text style={styles.textStyle}>{patient.name.first +" "} {patient.name.last}</Text>
+                <Text style={styles.textStyle}>{patient.room}</Text>
+                <Text style={[
+                      styles.textStyle,
+                      patient.clinical.condition == "Critical" && styles.criticalStyle]}>
+                    {patient.clinical.condition}
+                </Text>
+                <Image style={styles.imageStyle} source={{
+                    uri: patient.picture
+                }}></Image>
         </View>
-
     return (
+        <View>
+            <Text style = {styles.titleStyle}>Patient List</Text>
             <FlatList
                 data={patients}
                  keyExtractor={(item,i) => i}
@@ -28,21 +35,42 @@ const UserListComponent = () => {
                     patientRow(listItem.item)
                 }
             ></FlatList>
+
+        </View>
+            
    )
 
 }
 
 const styles = StyleSheet.create({
+    titleStyle : {
+        fontSize: 30,
+        fontWeight:"bold",
+        marginTop: 50,
+        marginLeft:130
+        
+    },
     textStyle : {
-        fontSize: 20
-    }
-    , viewStyle: {
-        backgroundColor: 'gray',
-        margin: 10,
+        marginTop: 15,
+        fontSize: 20,
+        fontWeight: "bold"
+    },
+    viewStyle: {
+        flexDirection: 'row',
+        alignItems: 'stretch',
+        justifyContent:'space-between',
+        borderWidth: 1,
+        margin: 15,
+        borderRadius: 5,
+        padding: 10
     },
     imageStyle: {
         width: 50,
         height: 50
+    },
+    criticalStyle : {
+        color:"white",
+        backgroundColor: "red"
     }
 })
 
