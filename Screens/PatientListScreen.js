@@ -42,7 +42,7 @@ const PatientListComponent = () => {
         </View>
     return (
         <View>
-            <Text style = {styles.titleStyle}>Patient List</Text>
+            
             {/* add the search term and retrive it , pass the logic from parent to child*/}
             {/* update the term(changed in searchbar) and update here
             rising the state from child component to parent component,
