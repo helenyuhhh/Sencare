@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text, FlatList ,View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import SearchBar from "../Component/SearchBar";
-const PatientListComponent = (props) => {
+const PatientListScreen = (props) => {
     const [searchTerm, setSearchTerm] = useState('')
     const [patients,setPatientsList] = useState([])
     const fetchPatients = async() => {
@@ -100,6 +100,6 @@ const styles = StyleSheet.create({
     }
 })
 
-export default PatientListComponent;
+export default PatientListScreen;
 
 

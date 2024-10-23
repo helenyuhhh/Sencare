@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator} from '@react-navigation/stack';
 import PatientDetailsScreen from './Screens/PatientDetailsScreen';
+import NameScreen from './Screens/NameScreen';
 
 
 export default function App() {
@@ -25,7 +26,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator>
       <Tab.Screen name='Home' component={PatientStack} />
-      <Tab.Screen name='Flex' component={LayoutModules} />
+      <Tab.Screen name='Add' component={NameScreen} />
     </Tab.Navigator>
 
     </NavigationContainer>
