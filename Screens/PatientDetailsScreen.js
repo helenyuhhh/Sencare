@@ -16,6 +16,7 @@ const PatientDetailsScreen = ({route, navigation}) => {
             <Text style={styles.textStyle}> { "Height: " + patient.height} </Text>
             <Text style={styles.textStyle}> { "Recorded Date: " +patient.date} </Text>
             <Button title="Record New Data" > </Button>
+            <Button title="View Data History" > </Button>
        </View>
           
    )
