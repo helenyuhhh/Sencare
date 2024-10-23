@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { Text ,View, StyleSheet, Button } from "react-native";
 // future plan: add a button to the record data screen ti update the latest data?
 
