@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TextInput, Button, Text } from 'react-native';
+import { Image, View, StyleSheet, TextInput, Button, Text } from 'react-native';
 const LoginScreen = (props) =>{
     const [userName, setUserName] = useState('') // set user name
     const [password, setPassword] = useState('')
@@ -14,7 +14,7 @@ const LoginScreen = (props) =>{
     }
     return(
         <View style = {marginTop=200}>
-            
+            <Image style={styles.imageStyle} source={require('../assets/Logo.png')}></Image>
             <View  style = {styles. viewStyle}>
               <Text style = {styles.textStyle}>Please Enter Your User Name</Text>
               <TextInput style = {styles.inputView}value = {userName} onChangeText={setUserName}
@@ -49,6 +49,11 @@ const styles = StyleSheet.create({
       borderRadius: 5,
       fontSize: 20,
       fontWeight: "bold",
-    }
+    },
+    imageStyle: {
+      alignSelf:"center",
+      width: 150,
+      height: 150
+  }
   })
 export default LoginScreen

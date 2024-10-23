@@ -3,27 +3,42 @@ import React, { useState, useEffect } from "react";
 import { Text, FlatList ,View, StyleSheet, Image, TouchableOpacity} from "react-native";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 const DataHistoryScreen = (props) => {
-    const [list,setList] = useState(['Day1', 'Day2'])
+    const [dates,setDate] = useState(['Day1', 'Day2'])
    
-    /*patientRow = (name) => 
+    dataRow = (date) => 
         <TouchableOpacity onPress={()=>{
+            <View style={styles.viewStyle}>
+                <Text style={styles.textStyle}>{date}</Text>
+            </View>
             
         }}>
-            <View style={styles.viewStyle}>
-                <Text style={styles.textStyle}>{name}</Text>
-        </View>
+            
 
-        </TouchableOpacity>*/
+        </TouchableOpacity>
     
  // keyExtractor={(item,i) => i.toString()} i is the index   
  // since I only need name, I need to destructure it    renderItem={ ({name}) =>  patientRow(name)}
 
-    return (
-        <View style={styles.viewStyle}>    
-           <FontAwesome6 style = {styles.iconStyle} name="add" />
-            
-        </View>   
-   )
+ return (
+    <View style={styles.viewStyle}>    
+        <FlatList
+            data={dates}
+             keyExtractor={(item,i) => i.toString()}
+            renderItem={ ({item}) => 
+                <Text style={styles.textStyle}>{item}</Text>
+            }
+        ></FlatList>
+        <TouchableOpacity>
+        <FontAwesome6 name="add" style = {styles.iconStyle} onPress={()=>{
+            props.navigation.navigate('AddData', 
+                {addNewDate:(newDate)=>{
+                    setDate((prevItems)=>[...prevItems, newDate]) // ... means copy the previous items
+                }})
+
+        }}/>
+        </TouchableOpacity>
+    </View>   
+)
 }
 /**
  * <AntDesign name="adduser" style = {styles.iconStyle} onPress={()=>{

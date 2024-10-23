@@ -18,9 +18,7 @@ const PatientDetailsScreen = ({route, navigation}) => {
             <Text style={styles.textStyle}> { "Weight: " + patient.weight} </Text>
             <Text style={styles.textStyle}> { "Height: " + patient.height} </Text>
             <Text style={styles.textStyle}> { "Recorded Date: " +patient.date} </Text>
-            <Button title="View or add clinical data" onPress={
-                gotoRecord
-            }> </Button>
+            <Button title="View or add clinical data" onPress={ gotoRecord }> </Button>
        </View>
           
    )

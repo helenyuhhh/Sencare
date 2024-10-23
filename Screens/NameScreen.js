@@ -4,15 +4,6 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 const NameScreen = (props) => {
     const [names,setNames] = useState(['John', 'Marry'])
    
-    patientRow = (name) => 
-        <TouchableOpacity onPress={()=>{
-            
-        }}>
-            <View style={styles.viewStyle}>
-                <Text style={styles.textStyle}>{name}</Text>
-        </View>
-
-        </TouchableOpacity>
     
  // keyExtractor={(item,i) => i.toString()} i is the index   
  // since I only need name, I need to destructure it    renderItem={ ({name}) =>  patientRow(name)}
@@ -23,7 +14,7 @@ const NameScreen = (props) => {
                 data={names}
                  keyExtractor={(item,i) => i.toString()}
                 renderItem={ ({item}) => 
-                    patientRow(item)
+                    <Text style={styles.textStyle}>{item}</Text>
                 }
             ></FlatList>
             <TouchableOpacity>
