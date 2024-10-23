@@ -7,6 +7,7 @@ const AddNewPatientScreen = ({ navigation}) => {
     
     const [newFirst, setNewFirst] = useState('')
     const [newLast, setNewLast] = useState('')
+    const [newRoom, setNewRoom] = useState('')
     const [newAge, setNewAge] = useState(0)
     const [newGender, setNewGender] = useState('')
     const [newSyatolic, setNewSyatolic] = useState(0)
@@ -21,6 +22,8 @@ const AddNewPatientScreen = ({ navigation}) => {
             placeholder="Enter First Name:"value = {newFirst} onChangeText={setNewFirst}> </TextInput>
             <TextInput style={styles.textStyle}
             placeholder="Enter Last Name:"value = {newLast} onChangeText={setNewLast}></TextInput>
+            <TextInput style={styles.textStyle}
+            placeholder="Enter Room #:"value = {newRoom} onChangeText={setNewRoom}></TextInput>
             <TextInput style={styles.textStyle}
             placeholder="Enter Age:"value = {newAge} onChangeText={setNewAge}></TextInput>
             <TextInput style={styles.textStyle}
