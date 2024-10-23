@@ -2,8 +2,11 @@ import { Text ,View, StyleSheet, Button } from "react-native";
 // future plan: add a button to the record data screen ti update the latest data?
 
 const PatientDetailsScreen = ({route, navigation}) => {
-
+    
     const patient = route.params.toPatientDetail
+    const gotoRecord = () => {
+        navigation.navigate('Record')
+    }
     return (
         <View style = {styles.viewStyle}>
             <Text style={styles.textStyle}> {"Patient Name: "+ patient.name.first +" "} {patient.name.last} </Text>
@@ -15,8 +18,9 @@ const PatientDetailsScreen = ({route, navigation}) => {
             <Text style={styles.textStyle}> { "Weight: " + patient.weight} </Text>
             <Text style={styles.textStyle}> { "Height: " + patient.height} </Text>
             <Text style={styles.textStyle}> { "Recorded Date: " +patient.date} </Text>
-            <Button title="Record New Data" > </Button>
-            <Button title="View Data History" > </Button>
+            <Button title="View or add clinical data" onPress={
+                gotoRecord
+            }> </Button>
        </View>
           
    )
