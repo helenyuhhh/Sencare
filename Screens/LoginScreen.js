@@ -23,6 +23,7 @@ const LoginScreen = (props) =>{
             <View style = {styles. viewStyle}>
               <Text style = {styles.textStyle}>Please Enter Your password</Text>
               <TextInput style = {styles.inputView}value = {password} onChangeText={setPassword}
+              secureTextEntry = {true}
               placeholder='Enter password:'/>
             </View>
             <Button title='Log In' onPress={checkLogin}></Button>
