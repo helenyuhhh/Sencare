@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Text, FlatList ,View, StyleSheet, Image } from "react-native";
+import { Text, FlatList ,View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import SearchBar from "../Component/SearchBar";
-const PatientListComponent = () => {
+const PatientListComponent = (props) => {
     const [searchTerm, setSearchTerm] = useState('')
     const [patients,setPatientsList] = useState([])
     const fetchPatients = async() => {
@@ -28,7 +28,10 @@ const PatientListComponent = () => {
         }
     }
     patientRow = (patient) => 
-        <View style={styles.viewStyle}>
+        <TouchableOpacity onPress={()=>{
+            props.navigation.navigate('PatientDetail', {toPatientDetail:patient})
+        }}>
+            <View style={styles.viewStyle}>
                 <Text style={styles.textStyle}>{patient.name.first +" "} {patient.name.last}</Text>
                 <Text style={styles.textStyle}>{patient.room}</Text>
                 <Text style={[
@@ -40,6 +43,9 @@ const PatientListComponent = () => {
                     uri: patient.picture
                 }}></Image>
         </View>
+
+        </TouchableOpacity>
+        
     return (
         <View>
             
