@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Text, FlatList ,View, StyleSheet, Image, TouchableOpacity} from "react-native";
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 const DataHistoryScreen = (props) => {
-    const [dates,setDate] = useState(['Day1', 'Day2'])
+    const [dates,setDate] = useState([])
    
     dataRow = (date) => 
         <TouchableOpacity onPress={()=>{
