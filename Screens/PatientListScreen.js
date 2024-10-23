@@ -13,6 +13,7 @@ const PatientListScreen = (props) => {
     useEffect(() => { 
         fetchPatients()
     },[])
+    
     const filterPatients = (nameToSearch)=> {
         if (nameToSearch == ""){
             fetchPatients()
