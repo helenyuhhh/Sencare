@@ -30,12 +30,21 @@ export default function App() {
         </Stack.Navigator>    
         )
 }
+   const LogOut = ()=> {
+    return(
+      <View>
+        <Text style = {styles.textStyle}>You logged out</Text>
+      </View>
+    )
+   }
 // component={PatientStack} means that the whole negavition screen will be the component of home
   return (
     <NavigationContainer>
       <Tab.Navigator>
       <Tab.Screen name='Home' component={PatientStack} />
       <Tab.Screen name='Add' component={NameStack} />
+      <Tab.Screen name='LogOut' component = {LogOut}/>
+      
 
     </Tab.Navigator>
 
@@ -54,4 +63,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textStyle : {
+    marginTop: 15,
+    fontSize: 20,
+    fontWeight: "bold",
+    alignContent: "center"
+},
 })
