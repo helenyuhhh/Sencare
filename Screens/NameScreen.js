@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Text, FlatList ,View, StyleSheet, Image, TouchableOpacity } from "react-native";
-import SearchBar from "../Component/SearchBar";
+import AntDesign from '@expo/vector-icons/AntDesign';
 const NameScreen = (props) => {
     const [names,setNames] = useState(['John', 'Marry'])
-  
-    useEffect(() => { 
-        fetchPatients()
-    },[])
    
     patientRow = (name) => 
         <TouchableOpacity onPress={()=>{
@@ -17,50 +13,51 @@ const NameScreen = (props) => {
         </View>
 
         </TouchableOpacity>
-        
+    
+ // keyExtractor={(item,i) => i.toString()} i is the index   
+ // since I only need name, I need to destructure it    renderItem={ ({name}) =>  patientRow(name)}
+
     return (
-        <View>    
+        <View styles={styles.viewStyle}>    
             <FlatList
                 data={names}
                  keyExtractor={(item,i) => i.toString()}
-                renderItem={ (name) => 
+                renderItem={ ({name}) => 
                     patientRow(name)
                 }
             ></FlatList>
+            <TouchableOpacity>
+            <AntDesign name="adduser" style = {styles.iconStyle} onPress={()=>{
+                props.navigation.navigate('AddNewPatient')
+
+            }}/>
+
+            </TouchableOpacity>
         </View>   
    )
 }
 
 const styles = StyleSheet.create({
-    titleStyle : {
-        fontSize: 30,
-        fontWeight:"bold",
-        marginTop: 50,
-        marginLeft:130
-        
-    },
+    
     textStyle : {
         marginTop: 15,
         fontSize: 20,
         fontWeight: "bold"
     },
     viewStyle: {
-        flexDirection: 'row',
-        alignItems: 'stretch',
-        justifyContent:'space-between',
+        flex: 1,
+        alignContent: 'stretch',
         borderWidth: 1,
         margin: 15,
         borderRadius: 5,
         padding: 10
     },
-    imageStyle: {
-        width: 50,
-        height: 50
-    },
-    criticalStyle : {
-        color:"white",
-        backgroundColor: "red"
-    }
+   iconStyle: {
+    position: "absolute",
+    fontSize:40,
+    color: "black",
+    right: 10
+   }
 })
 
 export default NameScreen;

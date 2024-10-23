@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator} from '@react-navigation/stack';
 import PatientDetailsScreen from './Screens/PatientDetailsScreen';
+import AddNewPatientScreen from './Screens/AddNewPatientScreen';
 import NameScreen from './Screens/NameScreen';
 
 
@@ -21,12 +22,21 @@ export default function App() {
       </Stack.Navigator>    
     )
   }
+  const NameStack = () => {
+    return(
+        <Stack.Navigator>
+          <Stack.Screen name = "NameScreen" component={NameScreen}/>
+          <Stack.Screen name = "AddNewPatient" component={AddNewPatientScreen}/>
+        </Stack.Navigator>    
+        )
+}
 // component={PatientStack} means that the whole negavition screen will be the component of home
   return (
     <NavigationContainer>
       <Tab.Navigator>
       <Tab.Screen name='Home' component={PatientStack} />
-      <Tab.Screen name='Add' component={NameScreen} />
+      <Tab.Screen name='Add' component={NameStack} />
+
     </Tab.Navigator>
 
     </NavigationContainer>
