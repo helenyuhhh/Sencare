@@ -1,17 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { Text, FlatList ,View, StyleSheet, Image } from "react-native";
-
-const UserListComponent = () => {
-    const [patients,setPatients] = useState([])
+import SearchBar from "../Component/SearchBar";
+const PatientListComponent = () => {
+    const [searchTerm, setSearchTerm] = useState('')
+    const [patients,setPatientsList] = useState([])
     const fetchPatients = async() => {
         fetch('http://172.16.7.126:3000/api/patients').
             then(response => response.json()).then(data => {
-                setPatients(data)
+                setPatientsList(data)
             } )
     } 
     useEffect(() => { 
         fetchPatients()
     },[])
+    const filterPatients = (nameToSearch)=> {
+        if (nameToSearch == ""){
+            fetchPatients()
+        }
+        else {
+            var resultList = patients.filter((patient)=>{
+                // if patient's first name == typed name, return that patient and make a new list
+                return patient.name.first == nameToSearch
+            })
+            if (resultList.length > 0) {
+                setPatientsList(resultList)
+            }
+        }
+    }
     patientRow = (patient) => 
         <View style={styles.viewStyle}>
                 <Text style={styles.textStyle}>{patient.name.first +" "} {patient.name.last}</Text>
@@ -28,6 +43,14 @@ const UserListComponent = () => {
     return (
         <View>
             <Text style = {styles.titleStyle}>Patient List</Text>
+            {/* add the search term and retrive it , pass the logic from parent to child*/}
+            {/* update the term(changed in searchbar) and update here
+            rising the state from child component to parent component,
+            now we are able to see the typed string in search bar.*/}
+            <SearchBar term = {searchTerm} onTermChange={(newTerm)=>{
+                setSearchTerm(newTerm)
+                filterPatients(newTerm)
+            }} /> 
             <FlatList
                 data={patients}
                  keyExtractor={(item,i) => i}
@@ -35,11 +58,8 @@ const UserListComponent = () => {
                     patientRow(listItem.item)
                 }
             ></FlatList>
-
-        </View>
-            
+        </View>   
    )
-
 }
 
 const styles = StyleSheet.create({
@@ -74,6 +94,6 @@ const styles = StyleSheet.create({
     }
 })
 
-export default UserListComponent;
+export default PatientListComponent;
 
 
