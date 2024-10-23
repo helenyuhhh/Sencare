@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, FlatList ,View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import AntDesign from '@expo/vector-icons/AntDesign';
 const NameScreen = (props) => {
-    const [names,setNames] = useState(['John', 'Marry'])
+    const [names,setNames] = useState([])
    
     
  // keyExtractor={(item,i) => i.toString()} i is the index   

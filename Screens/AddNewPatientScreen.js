@@ -18,7 +18,7 @@ const AddNewPatientScreen = ({ navigation, route}) => {
     // a function: add new item to list
     const addNewItemToList = ()=>{
         const {addNewItem} = route.params; // now this function can be used here?
-        const nameString = newFirst + " " + newLast
+        const nameString = newFirst + " " + newLast + "  " + newRoom + "  " + newCondition
         if (nameString !== "") {
             addNewItem(nameString)
             navigation.goBack()
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     },
     textStyle : {
         padding:3,
-        fontSize: 25
+        fontSize: 20
     }
 })
 
