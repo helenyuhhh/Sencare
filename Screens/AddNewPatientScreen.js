@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import {View, StyleSheet, Button, TextInput } from "react-native";
 // future plan: add a button to the record data screen ti update the latest data?
 
-const AddNewPatientScreen = ({ navigation}) => {
+const AddNewPatientScreen = ({ navigation, route}) => {
 
-    
     const [newFirst, setNewFirst] = useState('')
     const [newLast, setNewLast] = useState('')
     const [newRoom, setNewRoom] = useState('')
@@ -16,10 +15,20 @@ const AddNewPatientScreen = ({ navigation}) => {
     const [newWeight, setNewWeight] = useState('')
     const [newHeight, setNewHeight] = useState('')
     const [newDate, setNewDate] = useState(new Date())
+    // a function: add new item to list
+    const addNewItemToList = ()=>{
+        const {addNewItem} = route.params; // now this function can be used here?
+        const nameString = newFirst + " " + newLast
+        if (nameString !== "") {
+            addNewItem(nameString)
+            navigation.goBack()
+        }
+    }
+
     return (
         <View style = {styles.viewStyle}>
             <TextInput style={styles.textStyle}
-            placeholder="Enter First Name:"value = {newFirst} onChangeText={setNewFirst}> </TextInput>
+            placeholder="Enter First Name:"value = {newFirst} onChangeText={setNewFirst}></TextInput>
             <TextInput style={styles.textStyle}
             placeholder="Enter Last Name:"value = {newLast} onChangeText={setNewLast}></TextInput>
             <TextInput style={styles.textStyle}
@@ -40,9 +49,7 @@ const AddNewPatientScreen = ({ navigation}) => {
             placeholder="Enter Height:"value = {newHeight} onChangeText={setNewHeight}></TextInput>
             <TextInput style={styles.textStyle}
             placeholder="Date Record:"value = {newDate} onChangeText={setNewDate}></TextInput>
-            <Button title="Save" onPress = {()=>{
-                navigation.goBack() // go back to the parent screen
-            }}></Button>
+            <Button title="Save" onPress = { addNewItemToList }></Button>
        </View>
           
    )

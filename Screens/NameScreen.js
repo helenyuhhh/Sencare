@@ -22,13 +22,16 @@ const NameScreen = (props) => {
             <FlatList
                 data={names}
                  keyExtractor={(item,i) => i.toString()}
-                renderItem={ ({name}) => 
-                    patientRow(name)
+                renderItem={ ({item}) => 
+                    patientRow(item)
                 }
             ></FlatList>
             <TouchableOpacity>
             <AntDesign name="adduser" style = {styles.iconStyle} onPress={()=>{
-                props.navigation.navigate('AddNewPatient')
+                props.navigation.navigate('AddNewPatient', 
+                    {addNewItem:(newName)=>{
+                        setNames((prevItems)=>[...prevItems, newName]) // ... means copy the previous items
+                    }})
 
             }}/>
 
