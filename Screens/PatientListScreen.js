@@ -10,6 +10,13 @@ const PatientListScreen = (props) => {
                 setPatientsList(data)
             } )
     } 
+    // fetch the tests, but need patients id
+    /*fetch('http://172.16.7.126:3000/api/patients').
+            then(response => response.json()).then(data => {
+                setPatientsList(data)
+            } )
+    } */
+    
     useEffect(() => { 
         fetchPatients()
     },[])
@@ -32,7 +39,9 @@ const PatientListScreen = (props) => {
         <TouchableOpacity onPress={()=>{
             props.navigation.navigate('PatientDetail', {toPatientDetail:patient})
         }}>
-            <View style={styles.viewStyle}>
+            <View style={[styles.viewStyle,
+                patient.clinical.condition == "Critical" && styles.criticalStyle
+            ]}>
                 <Text style={styles.textStyle}>{patient.name.first +" "} {patient.name.last}</Text>
                 <Text style={styles.textStyle}>{patient.room}</Text>
                 <Text style={[
@@ -97,7 +106,8 @@ const styles = StyleSheet.create({
     },
     criticalStyle : {
         color:"white",
-        backgroundColor: "red"
+        backgroundColor: "red",
+        borderColor: "red"
     }
 })
 

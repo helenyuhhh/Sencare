@@ -1,3 +1,5 @@
+// from now I want thisbutton only shows the basic details as an internatiate page
+// it will show patient's everything instead of clinical data cause it is stored in tests
 import { Text ,View, StyleSheet, Button } from "react-native";
 // future plan: add a button to the record data screen ti update the latest data?
 
@@ -12,6 +14,8 @@ const PatientDetailsScreen = ({route, navigation}) => {
             <Text style={styles.textStyle}> {"Patient Name: "+ patient.name.first +" "} {patient.name.last} </Text>
             <Text style={styles.textStyle}> { "Age: " + patient.age} </Text>
             <Text style={styles.textStyle}> { "Gender: " + patient.gender} </Text>
+            <Text style={styles.textStyle}> { "Test: " + patient.tests.category} </Text>
+            <Text style={styles.textStyle}> { "Test Reading: " + patient.tests.reading} </Text>
             <Text style={styles.textStyle}> { "Systolic: " + patient.clinical.systolic} </Text>
             <Text style={styles.textStyle}> { "Diastolic: " + patient.clinical.diastolic} </Text>
             <Text style={styles.textStyle}> { "Condition: " + patient.clinical.condition } </Text>
