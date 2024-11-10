@@ -8,7 +8,7 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
     const [newDiastolic, setNewDiastolic] = useState(0)
     const [newCondition, setNewCondition] = useState('')
 
-    const [newDate, setNewDate] = useState(new Date())
+    // const [newDate, setNewDate] = useState(new Date())
     // a function: add new item to list
     const addNewDataToList = ()=>{
         const {addNewDate} = route.params; // now this function can be used here?
@@ -27,8 +27,9 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
             placeholder="Enter Diastolic:"value = {newDiastolic} onChangeText={setNewDiastolic}></TextInput>
             <TextInput style={styles.textStyle}
             placeholder="Enter Condition:"value = {newCondition} onChangeText={setNewCondition}></TextInput>
-            <TextInput style={styles.textStyle}
-            placeholder="Date Record:"value = {newDate} onChangeText={setNewDate}></TextInput>
+            {/* <TextInput style={styles.textStyle}
+            placeholder="Date Record:"value = {newDate} onChangeText={setNewDate}></TextInput> */}
+            
             <Button title="Save" onPress = { addNewDataToList }></Button>
        </View>
           
