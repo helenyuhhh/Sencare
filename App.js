@@ -7,11 +7,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator} from '@react-navigation/stack';
 import PatientDetailsScreen from './Screens/PatientDetailsScreen';
 import PatientTestScreen from './Screens/PatientTestScreen';
+import TestDetailsScreen from './Screens/TestDetailsScreen'
 import AddNewPatientScreen from './Screens/AddNewPatientScreen';
 import NameScreen from './Screens/NameScreen';
 import LoginScreen from './Screens/LoginScreen';
 import DataHistoryScreen from './Screens/DataHistoryScreen';
 import AddClinicalDataScreen from './Screens/AddClinicalDataScreen';
+
 
 
 
@@ -26,9 +28,9 @@ export default function App() {
         <Stack.Screen name = "PatientList" component={PatientListScreen}/>
         <Stack.Screen name = "PatientDetail" component={PatientDetailsScreen}/>
         <Stack.Screen name = "PatientTests" component={PatientTestScreen}/>
-
+        <Stack.Screen name = "TestDetails" component={TestDetailsScreen}/>
         <Stack.Screen name = "Record" component={DataHistoryScreen}/>
-        <Stack.Screen name = "AddData" component={AddClinicalDataScreen}/>
+        <Stack.Screen name = "AddTest" component={AddClinicalDataScreen}/>
       </Stack.Navigator>  
     
 
@@ -42,6 +44,7 @@ export default function App() {
         <Stack.Screen name = "PatientList" component={PatientListScreen}/>
         <Stack.Screen name = "PatientDetail" component={PatientDetailsScreen}/>
         <Stack.Screen name = "PatientTests" component={PatientTestScreen}/>
+        <Stack.Screen name = "TestDetails" component={TestDetailsScreen}/>
         <Stack.Screen name = "Record" component={DataHistoryScreen}/>
         
       </Stack.Navigator>    

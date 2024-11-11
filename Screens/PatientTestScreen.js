@@ -1,5 +1,5 @@
-// from now I want thisbutton only shows the basic details as an internatiate page
-// it will show patient's everything instead of clinical data cause it is stored in tests
+// This page will show a list of users tests, it will have a search bar and
+// when we click, it will go to next page(TestDetailScreen), where we can see the specific test data
 import React, { useState, useEffect } from "react";
 import { Text ,View, StyleSheet, Button, FlatList, TouchableOpacity} from "react-native";
 // future plan: add a button to the record data screen ti update the latest data?
@@ -21,7 +21,8 @@ const PatientTestScreen = ({route, navigation}) => {
     },[])
     testRow = (test) => 
         <TouchableOpacity onPress={()=>{
-            props.navigation.navigate('TestDetail', {toTestDetail:test})
+            // pass test to toTestDetail, toTestDetail is just a name(i think)
+            navigation.navigate('TestDetails', {toTestDetail:test, toDetailPat:patient})
         }}>
             <View style={styles.viewStyle}>
                 <Text style={styles.textStyle}>{test.category}</Text>
