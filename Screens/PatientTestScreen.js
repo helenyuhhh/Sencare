@@ -14,7 +14,9 @@ const PatientTestScreen = ({route, navigation}) => {
         //endpoint changed, now fetching all the tests for all the patiets
         fetch(`http://172.16.7.126:3000/api/patients/${patient._id}/tests`).
             then(response => response.json()).then(data => {
-                setTestsList(data)
+                const filteredTests = data.filter(test => test.patient_id === patient._id)
+                setTestsList(filteredTests)
+                
             } )
     } 
     useEffect(() => { 
