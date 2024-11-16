@@ -15,15 +15,15 @@ const TestDetailsScreen = ({ navigation, route}) => {
             return <Text style={styles.textStyle}> { "Heartbeat Rate: " + test.reading.heartbeat_rate} </Text>
         }
         else if (test.category == "Respiratory Rate") {
-            return <Text style={styles.textStyle}> { "Respiratory Rate: " + test.reading.respiratory_rate} </Text>
+            return <Text style={styles.textStyle}> { "Respiratory Rate: " + test.reading.respiratory} </Text>
         }
         else if (test.category == "Blood Oxygen Level") {
-            return <Text style={styles.textStyle}> { "Blood Oxygen Level: " + test.reading.blood_oxygen_level} </Text>
+            return <Text style={styles.textStyle}> { "Blood Oxygen Level: " + test.reading.blood_oxygen} </Text>
         }
         else{
             return <Text style={styles.textStyle}> { "Blood Pressure: " + "\n" + 
-                "Systolic: " + test.reading.blood_pressure.systolic + "\n" + 
-                "Diastolic: " + test.reading.blood_pressure.diastolic} </Text>
+                "Systolic: " + test.reading.systolic + "\n" + 
+                "Diastolic: " + test.reading.diastolic} </Text>
         }
     }
     

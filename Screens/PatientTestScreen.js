@@ -11,9 +11,10 @@ const PatientTestScreen = ({route, navigation}) => {
     // TO DO: list of patients tests, just liek patient lists
     // try to fetch the tests from patient
     const fetchTests = async() => {
-        fetch(`http://172.16.7.126:3000/api/patients/${patient._id}`).
+        //endpoint changed, now fetching all the tests for all the patiets
+        fetch(`http://172.16.7.126:3000/api/patients/${patient._id}/tests`).
             then(response => response.json()).then(data => {
-                setTestsList(data.tests)
+                setTestsList(data)
             } )
     } 
     useEffect(() => { 
