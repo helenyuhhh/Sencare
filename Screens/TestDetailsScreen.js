@@ -34,10 +34,7 @@ const TestDetailsScreen = ({ navigation, route}) => {
             {testReading()}
             <Text style={styles.textStyle}> { "Nurse: " + test.nurse_name} </Text>
             <Text style={styles.textStyle}> { "Date: " + test.date} </Text>
-            <Button title="Add Test" onPress={()=>{
-                // this acts like sender, sent the patient to next screen, var is called toPatientTest
-            // navigation.navigate('AddTest', {toAddTest:test, toAddP:patient})
-        }}></Button>
+            
             
        </View>
           

@@ -47,6 +47,10 @@ const PatientTestScreen = ({route, navigation}) => {
                     testRow(listItem.item)
                 }
             ></FlatList>
+            <Button title="Add Test" onPress={()=>{
+                // this acts like sender, sent the patient to next screen, var is called toPatientTest
+            // navigation.navigate('AddTest', {toAddTest:test, toAddP:patient})
+        }}></Button>
             
             {/*  */}
             
