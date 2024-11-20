@@ -49,7 +49,7 @@ const PatientTestScreen = ({route, navigation}) => {
             ></FlatList>
             <Button title="Add Test" onPress={()=>{
                 // this acts like sender, sent the patient to next screen, var is called toPatientTest
-            // navigation.navigate('AddTest', {toAddTest:test, toAddP:patient})
+             navigation.navigate('AddTest', {toAddP:patient})
         }}></Button>
             
             {/*  */}
