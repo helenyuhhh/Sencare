@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import {View, StyleSheet, Button, TextInput, Text } from "react-native";
 import axios from "axios";
 import PatientTestScreen from "./PatientTestScreen";
+import { Picker } from "@react-native-picker/picker";   
 
 // future plan: add a button to the record data screen ti update the latest data?
 
@@ -37,7 +38,23 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
 
    // for test ID
     const [newID, setNewID] = useState("")
-    
+    // function picker for pick test
+    /*const pickTest = ()=> {
+        if (newCategory == "Heartbeat Rate") {
+            <TextInput style={styles.textStyle}
+            placeholder="Enter Heartbeat Rate:"value = {newHP} onChangeText={setHP}></TextInput>
+        }
+        else if (newCategory == "Respiratory Rate") {
+            <TextInput style={styles.textStyle}
+            placeholder="Enter Resiratory Rate:"value = {newRes} onChangeText={setRes}></TextInput>
+
+        }
+        else if (newCategory == "Blood Oxygen Level") {
+            <TextInput style={styles.textStyle}
+            placeholder="Enter Blood Oxygen Level:"value = {newBlOx} onChangeText={setBlO}></TextInput>
+            
+        }
+    }*/
     const newTest = async ()=>{
         // test structure:
         const test = {
@@ -80,22 +97,49 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
             <Text style = {styles.textStyle}>{patientID}</Text>
             <TextInput style={styles.textStyle}
             placeholder="Enter Type:"value = {newType} onChangeText={setType}></TextInput>
-            <TextInput style={styles.textStyle}
-            placeholder="Enter Category:"value = {newCategory} onChangeText={setCategory}></TextInput>
-            <TextInput style={styles.textStyle}
+            <View style={styles.pickerView}>
+                <Text style={styles.textStyle}>Select Test</Text>
+                <Picker selectedValue={newCategory}
+                    onValueChange={(itemValue) => {setCategory(itemValue)
+                    // select
+                    //pickTest()
+                    }
+                    
+                    } 
+                    style = {styles.pickerStyle}>
+                    <Picker.Item label="Heartbeat Rate" value="Heartbeat Rate" />
+                    <Picker.Item label="Respiratory Rate" value="Respiratory Rate" />
+                    <Picker.Item label="Blood Oxygen Level" value="Blood Oxygen Level" />
+                    <Picker.Item label="Blood Pressure" value="Blood Pressure" />
+                </Picker>
+
+            </View>
+            <View style = {styles.inputView}>
+            <TextInput style={[styles.textStyle,marginTop=20]}
             placeholder="Enter Date:"value = {newDate} onChangeText={setDate}></TextInput>
             <TextInput style={styles.textStyle}
             placeholder="Enter Nurse Name:"value = {newNurse} onChangeText={setNurse}></TextInput>
-            <TextInput style={styles.textStyle}
-            placeholder="Enter Syatolic:"value = {newSys} onChangeText={setSys}></TextInput>
-            <TextInput style={styles.textStyle}
-            placeholder="Enter Diastolic:"value = {newDia} onChangeText={setDia}></TextInput>
-            <TextInput style={styles.textStyle}
-            placeholder="Enter Blood Oxygen Level:"value = {newBlOx} onChangeText={setBlO}></TextInput>
-            <TextInput style={styles.textStyle}
-            placeholder="Enter Heartbeat Rate:"value = {newHP} onChangeText={setHP}></TextInput>
-            <TextInput style={styles.textStyle}
-            placeholder="Enter Resiratory Rate:"value = {newRes} onChangeText={setRes}></TextInput>
+            {newCategory === "Heartbeat Rate" && (<TextInput style={styles.textStyle}
+                placeholder="Enter Heartbeat Rate"
+                value={newHP}
+               onChangeText={setHP}/>)}
+            {newCategory === "Respiratory Rate" && (<TextInput style={styles.textStyle}
+                placeholder="Enter Respiratory Rate"
+                value={newRes}
+               onChangeText={setRes}/>)}
+               {newCategory === "Blood Oxygen Level" && (<TextInput style={styles.textStyle}
+                placeholder="Enter Blood Oxygen Level"
+                value={newBlOx}
+               onChangeText={setBlO}/>)}
+               {newCategory === "Blood Pressure" && (<TextInput style={styles.textStyle}
+                placeholder="Enter Systolic"
+                value={newSys}
+               onChangeText={setSys}/>)}
+               {newCategory === "Blood Pressure" && (<TextInput style={styles.textStyle}
+                placeholder="Enter DiaDiastolic"
+                value={newDia}
+               onChangeText={setDia}/>)}
+    
             <TextInput style={styles.textStyle}
             placeholder="Enter Test ID:"value = {newID} onChangeText={setNewID}></TextInput>
             
@@ -104,6 +148,10 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
             
             <Button title="Save" onPress={async () => {
              await newTest();}}/>
+
+            </View>
+            
+            
        </View>
           
    )
@@ -122,11 +170,30 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
 */
 const styles = StyleSheet.create({
     viewStyle:{
-        alignItems: "stretch"
+        justifyContent: "flex-start",
+        alignItems: "flex-start",
+        flexGrow: 1,
+        flex:1
+        
     },
     textStyle : {
+        
         padding:3,
         fontSize: 25
+    },
+    pickerStyle:{
+        position:"absolute",
+        top: -40,
+        left: 80,
+        width:300,
+        height:20
+    },
+    pickerView : {
+        flexDirection:"column",
+        padding:2
+    },
+    inputView:{
+        marginTop:120
     }
 })
 
