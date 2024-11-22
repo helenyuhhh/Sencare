@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, FlatList ,View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { Text, FlatList ,View, StyleSheet, Image, TouchableOpacity, Button } from "react-native";
 import SearchBar from "../Component/SearchBar";
 const PatientListScreen = (props) => {
     const [searchTerm, setSearchTerm] = useState('')
@@ -40,14 +40,14 @@ const PatientListScreen = (props) => {
             props.navigation.navigate('PatientDetail', {toPatientDetail:patient})
         }}>
             <View style={[styles.viewStyle,
-                patient.clinical.condition == "Critical" && styles.criticalStyle
+                patient.condition == "Critical" && styles.criticalStyle
             ]}>
                 <Text style={styles.textStyle}>{patient.name.first +" "} {patient.name.last}</Text>
                 <Text style={styles.textStyle}>{patient.room}</Text>
                 <Text style={[
                       styles.textStyle,
-                      patient.clinical.condition == "Critical" && styles.criticalStyle]}>
-                    {patient.clinical.condition}
+                      patient.condition == "Critical" && styles.criticalStyle]}>
+                    {patient.condition}
                 </Text>
                 <Image style={styles.imageStyle} source={{
                     uri: patient.picture
@@ -67,6 +67,7 @@ const PatientListScreen = (props) => {
                 setSearchTerm(newTerm)
                 filterPatients(newTerm)
             }} /> 
+            <Button title = "Refresh List" onPress={()=>{fetchPatients()}}/>
             <FlatList
                 data={patients}
                  keyExtractor={(item,i) => i}

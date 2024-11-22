@@ -38,23 +38,33 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
 
    // for test ID
     const [newID, setNewID] = useState("")
-    // function picker for pick test
-    /*const pickTest = ()=> {
-        if (newCategory == "Heartbeat Rate") {
-            <TextInput style={styles.textStyle}
-            placeholder="Enter Heartbeat Rate:"value = {newHP} onChangeText={setHP}></TextInput>
+    
+    var newCondition = ""
+    // function for check condition
+    const latestCondition = ()=> {
+        let criticalBlO = false
+        let criticalBloodPres = false
+        let criticalRes = false
+        let criticalHeartBeat = false
+        if (newRes && (newRes >= 17 || newRes <= 11)) {
+             criticalRes = true
         }
-        else if (newCategory == "Respiratory Rate") {
-            <TextInput style={styles.textStyle}
-            placeholder="Enter Resiratory Rate:"value = {newRes} onChangeText={setRes}></TextInput>
-
+        if(newBlOx && (newBlOx >= 1 || newRes < 0.95)) {
+             criticalBlO = true
         }
-        else if (newCategory == "Blood Oxygen Level") {
-            <TextInput style={styles.textStyle}
-            placeholder="Enter Blood Oxygen Level:"value = {newBlOx} onChangeText={setBlO}></TextInput>
-            
+        if (newHP &&(newHP > 100 || newHP <= 59)) {
+             criticalHeartBeat = true
         }
-    }*/
+        if (newSys && newDia && !(newSys <120 && newDia < 80)) {
+             criticalBloodPres = true
+        }
+        if ((criticalRes || criticalBlO || criticalHeartBeat || criticalBloodPres)) {
+            newCondition = "Critical"
+        }
+        else{
+            newCondition = "Normal"
+        }
+    }
     const newTest = async ()=>{
         // test structure:
         const test = {
@@ -73,7 +83,9 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
         id: newID
         }
         
-        navigation.goBack()
+        //navigation.goBack()
+        // call the latest condition
+        latestCondition()
 
         try {
             // Replace with your actual API URL and endpoint
@@ -82,6 +94,8 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
             const response = await axios.post(`http://172.16.7.126:3000/api/patients/${patientID}/tests`, test);
             if (response.status === 201) {
                 console.log('New test added:', response.data);
+                await axios.patch(`http://172.16.7.126:3000/api/patients/${patientID}`, {condition: newCondition})
+                console.log('patient condition uodated', newCondition)
                 navigation.goBack()
             } else {
                 console.error('Failed to add test:', response.statusText);
@@ -89,6 +103,7 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
         } catch (error) {
             console.error('Error adding test:', error);
         }
+
         
     }
 
@@ -147,7 +162,8 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
             placeholder="Date Record:"value = {newDate} onChangeText={setNewDate}></TextInput> */}
             
             <Button title="Save" onPress={async () => {
-             await newTest();}}/>
+             await newTest();
+             }}/>
 
             </View>
             
