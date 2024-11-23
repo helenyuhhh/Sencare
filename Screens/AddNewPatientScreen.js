@@ -3,10 +3,12 @@
  * view tests->show the test list->click the test->show the test detail
  * ->click the add test button -> add new test
  */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {View, StyleSheet, Button, TextInput } from "react-native";
 // future plan: add a button to the record data screen ti update the latest data?
 import axios from "axios";
+import * as SQLite from 'expo-sqlite';
+
 
 const AddNewPatientScreen = ({ navigation, route}) => {
 
@@ -19,7 +21,33 @@ const AddNewPatientScreen = ({ navigation, route}) => {
     const [newWeight, setNewWeight] = useState('')
     const [newHeight, setNewHeight] = useState('')
     const [newDate, setNewDate] = useState(new Date())
-    
+    // dqlite database
+    const [db, setDB] = useState(null)
+    // function to initialize the dababase
+    const initDataBase = async()=>{
+        try{
+            const database = await SQLite.openDatabaseAsync('localPatient.db')
+        setDB(database)
+        // continue to create the table
+        await db.execAsync(`CREATE TABLE IF NOT EXISTS patients(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT,
+            age INTEGER,
+            gender TEXT,
+            room TEXT,
+            condition TEXT,
+            weight TEXT,
+            height TEXT,
+            date TEXT);`) // inside string should be s sql quary
+        }catch (error){
+            console.log(error)
+        }
+        
+    }
+    // call the initDatabase here
+    useEffect(()=>{
+        initDataBase()
+    },[])
     // a function: add new item to list
     const addNewItemToList = ()=>{
         const {addNewItem} = route.params; // now this function can be used here?
@@ -29,6 +57,7 @@ const AddNewPatientScreen = ({ navigation, route}) => {
             navigation.goBack()
         }
     }
+    // add new patient to mongodb
     const newPatient = async ()=>{
        
         const newpatient = {
