@@ -36,7 +36,7 @@ const AddNewPatientScreen = ({ navigation, route}) => {
             first: newFirst,
             last: newLast
         },
-        tests:[],
+        //tests:[], 
         age: parseInt(newAge),
         gender: newGender, 
         room: newRoom,
