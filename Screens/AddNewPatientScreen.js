@@ -1,20 +1,25 @@
+/**this page will show the patient stored in local db
+ * when touch the patient list, it will show the patient detail,
+ * view tests->show the test list->click the test->show the test detail
+ * ->click the add test button -> add new test
+ */
 import React, { useState } from "react";
 import {View, StyleSheet, Button, TextInput } from "react-native";
 // future plan: add a button to the record data screen ti update the latest data?
+import axios from "axios";
 
 const AddNewPatientScreen = ({ navigation, route}) => {
 
     const [newFirst, setNewFirst] = useState('')
     const [newLast, setNewLast] = useState('')
     const [newRoom, setNewRoom] = useState('')
-    const [newAge, setNewAge] = useState(0)
+    const [newAge, setNewAge] = useState("")
     const [newGender, setNewGender] = useState('')
-    const [newSyatolic, setNewSyatolic] = useState(0)
-    const [newDiastolic, setNewDiastolic] = useState(0)
     const [newCondition, setNewCondition] = useState('')
     const [newWeight, setNewWeight] = useState('')
     const [newHeight, setNewHeight] = useState('')
     const [newDate, setNewDate] = useState(new Date())
+    
     // a function: add new item to list
     const addNewItemToList = ()=>{
         const {addNewItem} = route.params; // now this function can be used here?
@@ -24,6 +29,41 @@ const AddNewPatientScreen = ({ navigation, route}) => {
             navigation.goBack()
         }
     }
+    const newPatient = async ()=>{
+       
+        const newpatient = {
+        name: {
+            first: newFirst,
+            last: newLast
+        },
+        tests:[],
+        age: parseInt(newAge),
+        gender: newGender, 
+        room: newRoom,
+        condition: newCondition,
+        weight: newWeight,
+        height: newHeight,
+        date: newDate
+        }
+        
+        try {
+            // Replace with your actual API URL and endpoint
+            console.log("Patient Object:", JSON.stringify(newpatient, null, 2))
+
+            const response = await axios.post("http://172.16.7.126:3000/api/patients", newpatient)
+            if (response.status === 201) {
+                console.log('New patient added:', response.data)
+                navigation.goBack()
+            } else {
+                console.error('Failed to add patient:', response.statusText)
+            }
+        } catch (error) {
+            console.error('Error adding patient:', error)
+        }
+        navigation.goBack()
+
+        
+    }
 
     return (
         <View style = {styles.viewStyle}>
@@ -32,15 +72,11 @@ const AddNewPatientScreen = ({ navigation, route}) => {
             <TextInput style={styles.textStyle}
             placeholder="Enter Last Name:"value = {newLast} onChangeText={setNewLast}></TextInput>
             <TextInput style={styles.textStyle}
-            placeholder="Enter Room #:"value = {newRoom} onChangeText={setNewRoom}></TextInput>
-            <TextInput style={styles.textStyle}
             placeholder="Enter Age:"value = {newAge} onChangeText={setNewAge}></TextInput>
             <TextInput style={styles.textStyle}
             placeholder="Enter Gender:"value = {newGender} onChangeText={setNewGender}></TextInput>
             <TextInput style={styles.textStyle}
-            placeholder="Enter Syatolic:"value = {newSyatolic} onChangeText={setNewSyatolic}></TextInput>
-            <TextInput style={styles.textStyle}
-            placeholder="Enter Diastolic:"value = {newDiastolic} onChangeText={setNewDiastolic}></TextInput>
+            placeholder="Enter Room #:"value = {newRoom} onChangeText={setNewRoom}></TextInput>
             <TextInput style={styles.textStyle}
             placeholder="Enter Condition:"value = {newCondition} onChangeText={setNewCondition}></TextInput>
             <TextInput style={styles.textStyle}
@@ -49,23 +85,15 @@ const AddNewPatientScreen = ({ navigation, route}) => {
             placeholder="Enter Height:"value = {newHeight} onChangeText={setNewHeight}></TextInput>
             <TextInput style={styles.textStyle}
             placeholder="Date Record:"value = {newDate} onChangeText={setNewDate}></TextInput>
-            <Button title="Save" onPress = { addNewItemToList }></Button>
+            <Button title="Save to MongoDB" onPress = { async () => {
+             await newPatient()}}></Button>
+            <Button title="Save to local" onPress = { addNewItemToList }></Button>
        </View>
           
    )
 
 }
-/*
- <TextInput style={styles.textStyle}> {"Patient Name: "+ patient.name.first +" "} {patient.name.last} </TextInput>
-            <TextInput style={styles.textStyle}> { "Age: " + patient.age} </TextInput>
-            <TextInput style={styles.textStyle}> { "Gender: " + patient.gender} </TextInput>
-            <TextInput style={styles.textStyle}> { "Systolic: " + patient.clinical.systolic} </TextInput>
-            <TextInput style={styles.textStyle}> { "Diastolic: " + patient.clinical.diastolic} </TextInput>
-            <TextInput style={styles.textStyle}> { "Condition: " + patient.clinical.condition } </TextInput>
-            <TextInput style={styles.textStyle}> { "Weight: " + patient.weight} </TextInput>
-            <TextInput style={styles.textStyle}> { "Height: " + patient.height} </TextInput>
-            <TextInput style={styles.textStyle}> { "Recorded Date: " +patient.date} </TextInput>
-*/
+
 const styles = StyleSheet.create({
     viewStyle:{
         alignItems: "stretch"

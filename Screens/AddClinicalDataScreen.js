@@ -89,19 +89,19 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
 
         try {
             // Replace with your actual API URL and endpoint
-            console.log("Test Object:", JSON.stringify(test, null, 2));
+            console.log("Test Object:", JSON.stringify(test, null, 2))
 
-            const response = await axios.post(`http://172.16.7.126:3000/api/patients/${patientID}/tests`, test);
+            const response = await axios.post(`http://172.16.7.126:3000/api/patients/${patientID}/tests`, test)
             if (response.status === 201) {
-                console.log('New test added:', response.data);
+                console.log('New test added:', response.data)
                 await axios.patch(`http://172.16.7.126:3000/api/patients/${patientID}`, {condition: newCondition})
                 console.log('patient condition uodated', newCondition)
                 navigation.goBack()
             } else {
-                console.error('Failed to add test:', response.statusText);
+                console.error('Failed to add test:', response.statusText)
             }
         } catch (error) {
-            console.error('Error adding test:', error);
+            console.error('Error adding test:', error)
         }
 
         
@@ -162,8 +162,7 @@ const AddClinicalDataScreen = ({ navigation, route}) => {
             placeholder="Date Record:"value = {newDate} onChangeText={setNewDate}></TextInput> */}
             
             <Button title="Save" onPress={async () => {
-             await newTest();
-             }}/>
+             await newTest()}}/>
 
             </View>
             
