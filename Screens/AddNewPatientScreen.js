@@ -23,12 +23,26 @@ const AddNewPatientScreen = ({ navigation, route}) => {
     const [newDate, setNewDate] = useState(new Date())
     // dqlite database
     const [db, setDB] = useState(null)
+    const newpatient = {
+        name: {
+            first: newFirst,
+            last: newLast
+        },
+        //tests:[], 
+        age: parseInt(newAge),
+        gender: newGender, 
+        room: newRoom,
+        condition: newCondition,
+        weight: newWeight,
+        height: newHeight,
+        date: newDate
+        }
     // function to initialize the dababase
     const initDataBase = async()=>{
         try{
             const database = await SQLite.openDatabaseAsync('localPatient.db')
         setDB(database)
-        // continue to create the table
+        // continue to create the table, called patients 
         await db.execAsync(`CREATE TABLE IF NOT EXISTS patients(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
@@ -42,7 +56,24 @@ const AddNewPatientScreen = ({ navigation, route}) => {
         }catch (error){
             console.log(error)
         }
-        
+    }
+    // insert the database
+    const insertPatientToDB = async (newpatient) => {
+        if (!db) {
+            console.error("Database not initialised")
+            return
+        }
+        try {
+            const result = await db.runAsync(`INSERT INTO patients (name, age, gender, 
+                room, consition, weight, height, date ) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, newpatient)
+
+        }catch(error){
+            console.log(error)
+        }
+        // accept another parameter
+        // insert query and a parameter
+    
     }
     // call the initDatabase here
     useEffect(()=>{
@@ -58,23 +89,9 @@ const AddNewPatientScreen = ({ navigation, route}) => {
         }
     }
     // add new patient to mongodb
+    
+
     const newPatient = async ()=>{
-       
-        const newpatient = {
-        name: {
-            first: newFirst,
-            last: newLast
-        },
-        //tests:[], 
-        age: parseInt(newAge),
-        gender: newGender, 
-        room: newRoom,
-        condition: newCondition,
-        weight: newWeight,
-        height: newHeight,
-        date: newDate
-        }
-        
         try {
             // Replace with your actual API URL and endpoint
             console.log("Patient Object:", JSON.stringify(newpatient, null, 2))
@@ -116,7 +133,7 @@ const AddNewPatientScreen = ({ navigation, route}) => {
             placeholder="Date Record:"value = {newDate} onChangeText={setNewDate}></TextInput>
             <Button title="Save to MongoDB" onPress = { async () => {
              await newPatient()}}></Button>
-            <Button title="Save to local" onPress = { addNewItemToList }></Button>
+            <Button title="Save to local" onPress = { insertPatientToDB(newpatient) }></Button>
        </View>
           
    )
